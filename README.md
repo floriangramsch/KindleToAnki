@@ -1,2 +1,2 @@
 # KindleToAnki
-Addon for Anki to make cards from the vocabs of your Kindle
+Script for Anki to make cards from the vocabs of your Kindle
