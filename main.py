@@ -1,18 +1,14 @@
-import sys, os, re
+import sys, os
 from anki.storage import Collection
+
 import sqlite3
 from deep_translator import GoogleTranslator
-from aqt import mw
-from aqt.utils import showInfo, qconnect
-import aqt.qt
-import aqt
-
 def main():
     translator = GoogleTranslator(source='french', target='german')
 
     PROFILE_HOME = os.path.expanduser("/Users/flo/Library/Application Support/Anki2/User 1") 
     cpath = os.path.join(PROFILE_HOME, "collection.anki2")
-    col = Collection(cpath, log=True) # Entry point to the API
+    col = Collection(cpath, log=True)
 
     model_basic = col.models.by_name('Idiom')
     col.decks.current()['mid'] = model_basic['id']
@@ -33,7 +29,7 @@ def main():
                 words = cur.fetchone()
                 words_for_anki.append((words[1], words[2], beispiel))
 
-        for word in words_for_anki[:5]:
+        for word in words_for_anki:
             note = col.new_note(model_basic)
             note.note_type()['did'] = deck['id']
 
@@ -51,6 +47,4 @@ def main():
         cur.close()
         col.save()
 
-action = aqt.qt.QAction("test", mw)
-qconnect(action.triggered, main)
-mw.form.menuTools.addAction(action)
+main()
